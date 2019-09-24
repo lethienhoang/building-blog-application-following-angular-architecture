@@ -1,0 +1,108 @@
+.main-posts {
+    margin: 0 auto;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    &.u-flex {
+        display: -webkit-box !important;
+        display: -webkit-flex !important;
+        display: -ms-flexbox !important;
+        display: flex !important;
+    }
+    &.u-flex1 {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 1 auto;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        &.u-borderBox {
+            -webkit-box-sizing: border-box !important;
+            box-sizing: border-box !important;
+        }
+    }
+    &.u-flex0 {
+        -webkit-box-flex: 0;
+        -webkit-flex: 0 0 auto;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+    }
+    .main-posts-container8col {
+        max-width: 680px;
+    }
+    .main-posts-container4col {
+        max-width: 328px;
+    }
+}
+
+.related-article {
+    display: table;
+    width: 100%;
+    .related-article__body {
+        vertical-align: top;
+        margin-bottom: 30px;
+        &.group__item {
+            // padding: 5px;
+            padding-top: 15px;
+        }
+    }
+    .related-article_right__body {
+        vertical-align: top;
+        margin-bottom: 8px;
+    }
+    .article-image {
+        max-width: 160px;
+        max-height: 150px;
+        &.img-small {
+            img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+    .t_medium {
+        // padding: 5px;
+        .listing-meta {
+            span {
+                padding: 5px 0 10px;
+                color: #656565;
+                font-size: 0.7rem;
+                line-height: 1.36667;
+            }
+        }
+        &.listing-content {
+            padding: 5px 0 10px;
+            color: #656565;
+            font-size: 0.85rem;
+            line-height: 1.66667;
+        }
+        &.listing-title {
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 1.4rem;
+        }
+    }
+    .t_small {
+        // padding: 5px;
+        .listing-meta {
+            span {
+                padding: 5px 0 4px;
+                color: #656565;
+                font-size: 0.55rem;
+                line-height: 1.3333;
+            }
+        }
+        &.listing-content {
+            padding: 5px 0 5px;
+            color: #656565;
+            font-size: 0.65rem;
+            line-height: 1;
+        }
+        &.listing-title {
+            font-weight: 600;
+            letter-spacing: 0.7px;
+            font-size: 0.83rem;
+        }
+    }
+}
