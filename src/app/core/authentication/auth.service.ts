@@ -7,17 +7,18 @@ import { api_url } from 'src/app/constants/api.resources.constants';
 import { mapTo, catchError, tap } from 'rxjs/operators';
 import { appVariables } from 'src/app/constants/api.constants';
 import { Token } from '../models/token.model';
+import { HelperService } from '../services/helper.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpsService, private errorHandler: CustomErrorHandlerService)
+  constructor(private http: HttpsService, private helper: HelperService, private errorHandler: CustomErrorHandlerService)
   { }
 
   login(user: UserIdentify): Observable<boolean> {
-    return this.http.post(api_url.LOGIN_PAGE_URL, user)
+    return this.http.post(api_url.LOGIN_URL, user)
     .pipe(
       tap(
         (tokens: any) => this.storeTokens(tokens)
@@ -25,13 +26,13 @@ export class AuthService {
       mapTo(true),
       catchError(error => {
         this.errorHandler.handleError(error);
-        return of(false)
+        return of(false);
       }));
-  
+
   }
 
   logout() {
-    return this.http.post(api_url.LOGOUT_URL) 
+    return this.http.post(api_url.LOGOUT_URL)
     .pipe(
       tap(() => this.removeTokens()
       ),
@@ -45,17 +46,27 @@ export class AuthService {
 
   refreshToken() {
     const body = {
-      'refreshToken': localStorage.getItem(appVariables.ACCESS_REFRESH_TOKEN_LOCAL_STORAGE),
-      'token': localStorage.getItem(appVariables.ACCESS_TOKEN_LOCAL_STORAGE)
+      refreshToken: localStorage.getItem(appVariables.ACCESS_REFRESH_TOKEN_LOCAL_STORAGE),
+      token: localStorage.getItem(appVariables.ACCESS_TOKEN_LOCAL_STORAGE)
     }
     return this.http.post(api_url.REFRESH_TOKEN_URL, body)
     .pipe(
-      tap((tokens: any) => this.storeTokens(tokens)),      
+      tap((tokens: any) => this.storeTokens(tokens)),
     )
   }
 
+  isLogin(): boolean {
+    const currentUser = localStorage.getItem(appVariables.USER_LOCAL_STORAGE);
+
+    if (currentUser) {
+      return true;
+    }
+
+    return false;
+  }
 
   private storeTokens(token: Token) {
+    localStorage.setItem(appVariables.USER_LOCAL_STORAGE, JSON.stringify(this.helper.jwt_decode_token(token.token)));
     localStorage.setItem(appVariables.ACCESS_TOKEN_LOCAL_STORAGE, token.token);
     localStorage.setItem(appVariables.ACCESS_REFRESH_TOKEN_LOCAL_STORAGE, token.refreshToken);
   }

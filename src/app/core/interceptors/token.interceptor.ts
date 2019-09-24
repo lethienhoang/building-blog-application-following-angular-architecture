@@ -1,4 +1,4 @@
-import { Injectable, Injector } from "@angular/core";
+import { Injectable, Injector } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { CustomErrorHandlerService } from '../services/custom-error-handler.service';
@@ -15,37 +15,38 @@ export class TokenInterceptor implements HttpInterceptor {
         this.errorHandler = this.injector.get(CustomErrorHandlerService);
         this.authService = this.injector.get(AuthService);
     }
-    isRefreshingToken: boolean = false;
+    isRefreshingToken = false;
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token: string = localStorage.getItem(appVariables.ACCESS_TOKEN_LOCAL_STORAGE);
 
         const headersConfig = {
+          Authorization: ''
         };
         if (token) {
-            headersConfig['Authorization'] = `Bearer ${token}`;
+            headersConfig.Authorization = `Bearer ${token}`;
         }
 
         const req = this.addTokenToRequest(request, token);
         return next.handle(req).pipe(
             tap(
                 event => {
-                    //logging the http response to browser's console in case of a success
+                    // logging the http response to browser's console in case of a success
                     if (event instanceof HttpResponse) {
-                        console.log("api call success :", event);
+                        console.log('api call success :', event);
                     }
                 },
                 error => {
-                    //logging the http response to browser's console in case of a failuer
-                    console.log("api call error :", event);
+                    // logging the http response to browser's console in case of a failuer
+                    console.log('api call error :', event);
 
                     if (error instanceof HttpErrorResponse) {
-                        switch ((<HttpErrorResponse>error).status) {
+                        switch ((error as HttpErrorResponse).status) {
                             case 401:
                                 return this.handle401Error(request, next);
                             case 400:
-                                return <any>this.authService.logout();
+                                return this.authService.logout() as any;
                         }
                     } else {
                         this.errorHandler.handleError(error);
@@ -72,14 +73,14 @@ export class TokenInterceptor implements HttpInterceptor {
                 .pipe(
                     switchMap((token: Token) => {
                         if (token) {
-                            this.tokenSubject.next(token.token);;
+                            this.tokenSubject.next(token.token);
                             return next.handle(this.addTokenToRequest(request, token.token));
                         }
 
-                        return <any>this.authService.logout();
+                        return this.authService.logout() as any;
                     }),
                     catchError(err => {
-                        return <any>this.authService.logout();
+                        return this.authService.logout() as any;
                     }),
                     finalize(() => {
                         this.isRefreshingToken = false;

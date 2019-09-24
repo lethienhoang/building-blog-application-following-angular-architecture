@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Response, ResponseOptions } from '@angular/http';
 import { ErrorResponse } from 'src/app/interfaces/error';
-
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: 'root'
 })
 export class HelperService {
 
-  constructor() { }
+  constructor(private jwt: JwtHelperService) { }
+
+
+
+  jwt_decode_token(token: any): any {
+    return this.jwt.decodeToken(token);
+  }
+
 
 
   tryParseError(error: Response): any {

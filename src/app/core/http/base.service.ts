@@ -8,7 +8,7 @@ import { appVariables } from '../../constants/api.constants';
 
 import { catchError } from 'rxjs/operators';
 
-import { Observable } from 'rxjs'
+import { Observable } from 'rxjs';
 import { HttpsService } from './https.service';
 import { api_url } from 'src/app/constants/api.resources.constants';
 import { CustomErrorHandlerService } from '../services/custom-error-handler.service';
@@ -18,10 +18,10 @@ import { CustomErrorHandlerService } from '../services/custom-error-handler.serv
 })
 export class BaseService extends Http {
 
-  router: Router;
-  constructor(backend: XHRBackend, options: RequestOptions, public errorHandler: CustomErrorHandlerService) {
-    super(backend,options);
-    this.router = AppModule.injector.get(Router);
+  // router: Router;
+  constructor(backend: XHRBackend, options: RequestOptions, public errorHandler: CustomErrorHandlerService, private router: Router) {
+    super(backend, options);
+    // this.router = AppModule.injector.get(Router);
 
    }
 
@@ -35,8 +35,8 @@ export class BaseService extends Http {
      } else {
       this.createRequestOptions(url);
     }
-    return super.request(url, options).pipe(catchError((err, caught) => {
-      this.errorHandler.handleError(err)
+     return super.request(url, options).pipe(catchError((err, caught) => {
+      this.errorHandler.handleError(err);
       return Observable.throw(err);
     }));
    }
@@ -46,8 +46,8 @@ export class BaseService extends Http {
      const contentTypeHeader: string = options.headers.get('Content-Type');
 
      if (!contentTypeHeader) {
-      options.headers.append('Content-Type', appVariables.defaultContentTypeHeader);
-     }     
+      options.headers.append('Content-Type', appVariables.DEFAULT_CONTENT_TYPE_HEADER);
+     }
    }
 
   //  catchAuthError(self: BaseService) {
@@ -62,6 +62,6 @@ export class BaseService extends Http {
   //     return Observable.throw(res);
   //   }
 
-    
-  }
+
+
 }

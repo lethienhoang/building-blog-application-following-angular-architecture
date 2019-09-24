@@ -20,7 +20,9 @@ import { catchError, map, finalize } from 'rxjs/operators';
 })
 export class HttpsService {
 
-  constructor(public http: BaseService, public errorHandler: CustomErrorHandlerService, public helperService: HelperService, private loaderService: LoaderService) {
+  constructor(public http: BaseService, public errorHandler: CustomErrorHandlerService,
+              public helperService: HelperService,
+              private loaderService: LoaderService) {
 
   }
 
@@ -29,7 +31,7 @@ export class HttpsService {
 
     return this.http.get(url).pipe(map((res: Response) => this.handleResponse(res)),
       catchError((err, caught) => {
-        this.errorHandler.handleError(err)
+        this.errorHandler.handleError(err);
         return Observable.throw(err);
       }),
       finalize(() => {
@@ -43,7 +45,7 @@ export class HttpsService {
       return this.http.post(url, body, options)
         .pipe(map((res: Response) => this.handleResponse(res)),
           catchError((err, caught) => {
-            this.errorHandler.handleError(err)
+            this.errorHandler.handleError(err);
             return Observable.throw(err);
           }),
           finalize(() => {
@@ -53,7 +55,7 @@ export class HttpsService {
       return this.http.post(url, body)
         .pipe(map((res: Response) => this.handleResponse(res)),
           catchError((err, caught) => {
-            this.errorHandler.handleError(err)
+            this.errorHandler.handleError(err);
             return Observable.throw(err);
           }),
           finalize(() => {
@@ -66,7 +68,7 @@ export class HttpsService {
     this.loaderService.show();
     return this.http.delete(url).pipe(map((res: Response) => this.handleResponse(res)),
       catchError((err, caught) => {
-        this.errorHandler.handleError(err)
+        this.errorHandler.handleError(err);
         return Observable.throw(err);
       }),
       finalize(() => {
@@ -95,7 +97,7 @@ export class HttpsService {
   }
 
   formUrlParam(url, data) {
-    let queryString: string = '';
+    let queryString = '';
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         if (!queryString) {

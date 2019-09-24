@@ -1,0 +1,23 @@
+.panel-login {
+    padding: 10px;
+    box-shadow: 1px 1px #f8f8f8;
+    border: 1px solid #f8f8f8;
+    .panel-heading {
+        padding: 10px 15px;
+        border-bottom: 1px solid transparent;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        text-align: center;
+        a.active {
+            color: #000000;
+        }
+        a {
+            transition: all 0.1s linear;
+            font-weight: lighter;
+        }
+    }
+}
+
+.panel-main-auth {
+    margin: 0 auto;
+}

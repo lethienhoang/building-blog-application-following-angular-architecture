@@ -6,7 +6,7 @@ export const apiBaseUrl = function url(request: HttpRequest<any>): string {
     return `${environment.apiHost}${request.url}`;
 }
 
-export const appVariables = { 
+export const appVariables = {
     USER_LOCAL_STORAGE: 'user',
     ACCESS_TOKEN_SERVER: 'Authorization',
     ACCESS_TOKEN_LOCAL_STORAGE: 'token',
@@ -15,7 +15,8 @@ export const appVariables = {
 }
 
 export const page = {
-    LOGIN_PAGE: 'Login',
-    ERROR_PAGE: 'Error'
+    LOGIN_PAGE: '/Login',
+    ERROR_PAGE: '/Error',
+    PERMISSION_ERROR_PAGE: '/AccessDenied'
 }
 
