@@ -25,10 +25,32 @@ h3 {
     line-height: 1.3;
 }
 
-section {
-    margin: 0;
+.listfeaturedtag  {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 10px;
+    row-gap: 9em;
+
+    .wrapfooter {
+        position: static;
+    }
+
+    .card-block {
+        padding-top: 2em;
+        margin-bottom: 2em;
+    }
+
+    h2.card-title {
+        font-size: 1rem;
+        padding-bottom: 1em;
+    }
 }
 
+.featured-posts {
+    padding: 0 10p;
+    margin-bottom: 180px;
+    position: relative;
+}
 // // .wrap-input {
 // //     width: 100%;
 // //     z-index: 1;

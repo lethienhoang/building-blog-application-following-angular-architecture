@@ -5,7 +5,7 @@ import { CustomErrorHandlerService } from '../services/custom-error-handler.serv
 import { tap, switchMap, finalize, catchError, take, filter } from 'rxjs/operators';
 import { appVariables } from 'src/app/constants/api.constants';
 import { AuthService } from '../authentication/auth.service';
-import { Token } from '../models/token.model';
+import { Token } from '../../shared/models/token.model';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {

@@ -1,0 +1,17 @@
+.navbar-list {
+    display: inline-flex;
+    
+    .navbar-nav {
+        flex-direction: row;
+    }
+}
+
+.nav-menu-top {
+    padding: 10px;
+    margin-bottom: 17px;
+    border: none;
+
+    &.mediumnavigation {
+        box-shadow: none;
+    }
+}

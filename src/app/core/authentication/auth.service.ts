@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpsService } from '../http/https.service';
 import { CustomErrorHandlerService } from '../services/custom-error-handler.service';
-import { UserIdentify } from '../models/user.model';
+import { UserIdentify } from '../../shared/models/user.model';
 import { Observable, of } from 'rxjs';
 import { api_url } from 'src/app/constants/api.resources.constants';
 import { mapTo, catchError, tap } from 'rxjs/operators';
 import { appVariables } from 'src/app/constants/api.constants';
-import { Token } from '../models/token.model';
+import { Token } from '../../shared/models/token.model';
 import { HelperService } from '../services/helper.service';
 
 @Injectable({
